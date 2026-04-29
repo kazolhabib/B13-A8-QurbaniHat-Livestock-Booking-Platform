@@ -35,7 +35,7 @@ const Navbar = () => {
 
         {/* Desktop & Tablet Menu Container - Right Side */}
         <div className="navbar-end flex items-center">
-          {/* Desktop Links & Buttons (Hidden on Tablet/Mobile below 1280px) */}
+          {/* Desktop Links & Buttons */}
           <div className="hidden xl:flex items-center gap-8">
             <ul className="flex items-center gap-8">
               {navLinks.map((link) => (
@@ -61,22 +61,22 @@ const Navbar = () => {
             </ul>
             <div className="flex gap-8 ml-4 items-center">
               <Link
-                href="/signin"
+                href="/login"
                 style={{ color: customColor }}
                 className="font-normal hover:opacity-100 transition-all duration-300"
               >
                 Sign In
               </Link>
               <Link
-                href="/signup"
-                className="btn bg-[#253237] px-8 text-white font-bold rounded-lg shadow-lg shadow-primary/20 hover:border-[#253237] hover:bg-transparent hover:text-[#253237] transition-all duration-300"
+                href="/register"
+                className="btn bg-[#253237] px-8 text-white font-bold rounded-full shadow-lg shadow-primary/20 hover:border-[#253237] hover:bg-transparent hover:text-[#253237] transition-all duration-300"
               >
                 Sign Up
               </Link>
             </div>
           </div>
 
-          {/* Hamburger Menu - Right Side (Visible on Tablet/Mobile below 1280px) */}
+          {/* Hamburger Menu */}
           <div className="dropdown dropdown-end xl:hidden">
             <div tabIndex={0} role="button" className="btn btn-ghost hover:bg-primary/10">
               <svg
@@ -124,7 +124,7 @@ const Navbar = () => {
               </li>
               <li className="my-1">
                 <Link 
-                  href="/signin" 
+                  href="/login" 
                   style={{ color: customColor }}
                   className="text-lg py-3 rounded-xl hover:bg-base-200 transition-colors"
                 >
@@ -133,7 +133,7 @@ const Navbar = () => {
               </li>
               <li className="mt-4">
                 <Link 
-                  href="/signup" 
+                  href="/register" 
                   className="btn btn-primary btn-md w-full text-white font-bold rounded-xl shadow-lg shadow-primary/20"
                 >
                   Sign Up

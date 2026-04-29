@@ -1,3 +1,13 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@layer base {
+  html {
+    font-family: var(--font-geist-sans), var(--font-hind-siliguri), sans-serif;
+  }
+}
+
+.font-bengali {
+  font-family: var(--font-hind-siliguri), sans-serif;
+}
+

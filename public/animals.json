@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "name": "Deshi Shahi Cow",
+    "type": "Cow",
+    "breed": "Local Deshi",
+    "price": 120000,
+    "weight": 280,
+    "age": "3 years",
+    "location": "Bogura",
+    "description": "Healthy deshi cow suitable for Qurbani. Well fed with natural খাবার.",
+    "image": "/assets/qurbani-img-01.png",
+    "category": "Medium Animal"
+  },
+  {
+    "id": 2,
+    "name": "Premium Brahman Bull",
+    "type": "Bull",
+    "breed": "Brahman",
+    "price": 185000,
+    "weight": 420,
+    "age": "2.5 years",
+    "location": "Sirajganj",
+    "description": "Majestic Brahman bull with excellent meat quality and healthy structure.",
+    "image": "/assets/qurbani-img-02.png",
+    "category": "Large Animal"
+  },
+  {
+    "id": 3,
+    "name": "Sahiwal Master",
+    "type": "Cow",
+    "breed": "Sahiwal",
+    "price": 210000,
+    "weight": 480,
+    "age": "3.5 years",
+    "location": "Kushtia",
+    "description": "Premium Sahiwal breed, very calm and healthy. Ideal for big families.",
+    "image": "/assets/qurbani-img-03.png",
+    "category": "Large Animal"
+  },
+  {
+    "id": 4,
+    "name": "Australian Hybrid",
+    "type": "Bull",
+    "breed": "Hybrid",
+    "price": 250000,
+    "weight": 550,
+    "age": "4 years",
+    "location": "Rajshahi",
+    "description": "Huge Australian hybrid bull. Massive weight and healthy appearance.",
+    "image": "/assets/qurbani-img-04.png",
+    "category": "Large Animal"
+  },
+  {
+    "id": 5,
+    "name": "Black Bengal Goat",
+    "type": "Goat",
+    "breed": "Black Bengal",
+    "price": 35000,
+    "weight": 45,
+    "age": "1.5 years",
+    "location": "Chuadanga",
+    "description": "Authentic Black Bengal goat. Very energetic and healthy.",
+    "image": "/assets/qurbani-img-05.png",
+    "category": "Small Animal"
+  },
+  {
+    "id": 6,
+    "name": "Rajshahi White Goat",
+    "type": "Goat",
+    "breed": "Local",
+    "price": 42000,
+    "weight": 55,
+    "age": "2 years",
+    "location": "Natore",
+    "description": "Healthy white goat from Rajshahi region. Well cared for.",
+    "image": "/assets/qurbani-img-06.png",
+    "category": "Small Animal"
+  }
+]
