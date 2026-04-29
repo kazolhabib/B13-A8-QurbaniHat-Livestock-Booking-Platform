@@ -17,17 +17,17 @@ const Navbar = () => {
 
   return (
     <div className="bg-base-100/80 backdrop-blur-md sticky top-0 z-50 border-b border-base-200">
-      <div className="navbar w-full mx-auto px-5 md:px-10 lg:px-20 flex justify-between">
+      <div className="navbar w-full mx-auto px-5 md:px-10 lg:px-20 py-5 flex justify-between">
         {/* Logo - Left Side */}
         <div className="navbar-start">
-          <Link href="/" className="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
+          <Link href="/" className="flex items-center gap-2">
             <Image
               src={logo}
               alt="QurbaniHat Logo"
               width={200}
               height={48}
               style={{ height: "auto" }}
-              className="h-10 md:h-12 w-auto object-contain"
+              className="h-10 md:w-[10.625rem] w-auto object-contain"
               priority
             />
           </Link>
