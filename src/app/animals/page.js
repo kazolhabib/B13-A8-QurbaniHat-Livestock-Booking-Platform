@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Search, SlidersHorizontal, ArrowUpDown, MapPin, Scale, Calendar, Tag } from "lucide-react";
+import { toast } from "react-toastify";
 
 const AnimalsPage = () => {
   const [animals, setAnimals] = useState([]);
   const [filteredAnimals, setFilteredAnimals] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("default");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("/animals.json")
@@ -17,6 +19,7 @@ const AnimalsPage = () => {
       .then((data) => {
         setAnimals(data);
         setFilteredAnimals(data);
+        setLoading(false);
       });
   }, []);
 
@@ -96,8 +99,13 @@ const AnimalsPage = () => {
           </p>
         </div>
 
-        {/* Animals Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+        {/* Animals Grid / Loading Spinner */}
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <div className="w-16 h-16 border-4 border-[#253237] border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           {filteredAnimals.map((animal) => (
             <div
               key={animal.id}
@@ -158,7 +166,7 @@ const AnimalsPage = () => {
                     <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Asking Price</span>
                     <span className="text-2xl font-black text-[#253237]">৳ {animal.price.toLocaleString()}</span>
                   </div>
-                  <Link href={`/animals/${animal.id}`}>
+                  <Link href={`/animals/${animal.id}`} onClick={() => toast.info("Loading animal details...")}>
                     <button className="px-8 py-3.5 bg-[#253237] text-white text-xs font-bold uppercase rounded-2xl hover:bg-[#FFCC4D] hover:text-[#253237] transition-all duration-300 shadow-lg cursor-pointer">
                       View Details
                     </button>
@@ -167,10 +175,11 @@ const AnimalsPage = () => {
               </div>
             </div>
           ))}
-        </div>
+          </div>
+        )}
 
         {/* Empty State */}
-        {filteredAnimals.length === 0 && (
+        {!loading && filteredAnimals.length === 0 && (
           <div className="py-20 text-center space-y-4">
             <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
               <Search className="w-8 h-8 text-gray-300" />

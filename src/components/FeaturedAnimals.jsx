@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "react-toastify";
 import img4 from "@/assets/qurbani-img-04.png";
 import img5 from "@/assets/qurbani-img-05.png";
 import img6 from "@/assets/qurbani-img-06.png";
@@ -120,7 +121,7 @@ const FeaturedAnimals = () => {
                     <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Asking Price</span>
                     <span className="text-2xl font-black text-[#253237]">{animal.price}</span>
                   </div>
-                  <Link href={`/animals/${animal.id}`}>
+                  <Link href={`/animals/${animal.id}`} onClick={() => toast.info("Loading animal details...")}>
                     <button className="w-12 h-12 bg-[#253237] text-white rounded-xl flex items-center justify-center hover:bg-[#FFCC4D] hover:text-[#253237] transition-all duration-300 shadow-lg">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
