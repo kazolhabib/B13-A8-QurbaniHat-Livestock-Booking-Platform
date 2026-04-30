@@ -288,6 +288,17 @@ const AnimalDetails = () => {
                             placeholder="01XXXXX"
                           />
                         </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Delivery Address</label>
+                          <textarea
+                            required
+                            rows="3"
+                            value={bookingData.address}
+                            onChange={(e) => setBookingData({ ...bookingData, address: e.target.value })}
+                            className="w-full px-6 py-4 rounded-2xl border border-gray-100 focus:outline-none focus:border-[#253237] focus:ring-0 transition-all bg-gray-50/50 text-sm font-bold text-[#253237] resize-none"
+                            placeholder="Your complete delivery address"
+                          ></textarea>
+                        </div>
                       </div>
                     </div>
 
