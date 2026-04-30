@@ -61,7 +61,7 @@
     "age": "1.5 years",
     "location": "Chuadanga",
     "description": "Authentic Black Bengal goat. Very energetic and healthy.",
-    "image": "/assets/qurbani-img-05.png",
+    "image": "/assets/black-bengal-goat.png",
     "category": "Small Animal"
   },
   {
@@ -74,7 +74,7 @@
     "age": "2 years",
     "location": "Natore",
     "description": "Healthy white goat from Rajshahi region. Well cared for.",
-    "image": "/assets/qurbani-img-06.png",
+    "image": "/assets/white-goat.jpg",
     "category": "Small Animal"
   }
 ]

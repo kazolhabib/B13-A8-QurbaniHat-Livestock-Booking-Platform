@@ -36,7 +36,7 @@ const FeaturedAnimals = () => {
     <section className="py-20 px-5 md:px-10 lg:px-20 bg-white">
       <div className="max-w-[1360px] mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between md:items-end mb-16 gap-8">
+        <div className="flex flex-col md:flex-row justify-between md:items-end mb-16 gap-8 animate__animated animate__fadeInDown">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <span className="w-10 h-[2px] bg-[#FFCC4D]"></span>
@@ -60,8 +60,12 @@ const FeaturedAnimals = () => {
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {featuredAnimals.map((animal) => (
-            <div key={animal.id} className="group flex flex-col bg-white rounded-3xl border border-gray-100/50 shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden">
+          {featuredAnimals.map((animal, idx) => (
+            <div 
+              key={animal.id} 
+              className={`group flex flex-col bg-white rounded-3xl border border-gray-100/50 shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden animate__animated animate__fadeInUp`}
+              style={{ animationDelay: `${idx * 150}ms` }}
+            >
               {/* Image Container */}
               <div className="relative h-[300px] overflow-hidden">
                 <Image

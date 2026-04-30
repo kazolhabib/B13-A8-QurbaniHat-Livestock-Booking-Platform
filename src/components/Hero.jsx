@@ -108,10 +108,9 @@ const Hero = () => {
 
             {/* Text Content */}
             <div
-              className={`w-full md:w-[70%] lg:w-1/2 z-10 flex flex-col items-center md:items-start text-center md:text-left gap-3 md:gap-5 transition-all duration-[1500ms] delay-500 ${currentSlide === index
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-                }`}
+              className={`w-full md:w-[70%] lg:w-1/2 z-10 flex flex-col items-center md:items-start text-center md:text-left gap-3 md:gap-5 ${
+                currentSlide === index ? "animate__animated animate__fadeInUp opacity-100" : "opacity-0"
+              }`}
             >
               <h3 className="text-[10px] md:text-sm font-semibold tracking-[0.2em] text-white/80 md:text-gray-600 uppercase italic">
                 {slide.subtitle}

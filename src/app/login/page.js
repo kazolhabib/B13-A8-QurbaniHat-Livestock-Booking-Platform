@@ -57,7 +57,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center bg-[#fcfcfc] px-4 py-12">
-      <div className="max-w-md w-full bg-white p-8 rounded-3xl shadow-lg border border-gray-100">
+      <div className="max-w-md w-full bg-white p-8 rounded-3xl shadow-lg border border-gray-100 animate__animated animate__fadeInUp">
         <h2 className="text-3xl font-black text-center text-[#253237] mb-8">
           Welcome Back
         </h2>

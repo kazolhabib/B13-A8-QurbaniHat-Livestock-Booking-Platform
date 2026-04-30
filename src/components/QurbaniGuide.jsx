@@ -37,7 +37,7 @@ const QurbaniGuide = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
           
           {/* Left Side: Tips Content */}
-          <div className="space-y-10 md:space-y-12">
+          <div className="space-y-10 md:space-y-12 animate__animated animate__fadeInLeft">
             <div className="space-y-4 text-center md:text-left">
               <h2 className="text-[10px] md:text-sm font-black uppercase tracking-[0.3em] text-gray-400">
                 Knowledge Base
@@ -67,7 +67,7 @@ const QurbaniGuide = () => {
           </div>
 
           {/* Right Side: Top Breeds / Image */}
-          <div className="relative mt-8 lg:mt-0">
+          <div className="relative mt-8 lg:mt-0 animate__animated animate__fadeInRight">
             {/* Main Visual */}
             <div className="relative rounded-3xl lg:rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/5] sm:aspect-square lg:aspect-auto lg:h-[700px]">
               <Image 
