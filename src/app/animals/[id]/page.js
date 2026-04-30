@@ -100,7 +100,7 @@ const AnimalDetails = () => {
           {/* Left Column: Visuals & Primary Info */}
           <div className="lg:col-span-7 space-y-10">
             {/* Image Showcase */}
-            <div className="relative rounded-[48px] overflow-hidden bg-white shadow-2xl border border-gray-100 aspect-video md:aspect-[16/10] group">
+            <div className="relative rounded-4xl overflow-hidden bg-white shadow-2xl border border-gray-100 aspect-video md:aspect-[16/10] group">
               <Image
                 src={animal.image}
                 alt={animal.name}
@@ -122,7 +122,7 @@ const AnimalDetails = () => {
             </div>
 
             {/* Comprehensive Details Section */}
-            <div className="bg-white rounded-[48px] p-10 md:p-14 shadow-sm border border-gray-50 space-y-12">
+            <div className="bg-white rounded-4xl p-10 md:p-14 shadow-sm border border-gray-50 space-y-12">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gray-100 pb-10">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
@@ -200,7 +200,7 @@ const AnimalDetails = () => {
           <div className="lg:col-span-5">
             <div className="sticky top-32 space-y-8">
               {/* Pricing Card */}
-              <div className="bg-[#253237] rounded-[48px] p-10 md:p-12 text-white shadow-2xl relative overflow-hidden group">
+              <div className="bg-[#253237] rounded-4xl p-10 md:p-12 text-white shadow-2xl relative overflow-hidden group">
                 <div className="absolute -right-20 -top-20 w-64 h-64 bg-white/5 rounded-full blur-3xl group-hover:bg-white/10 transition-colors duration-700" />
                 <div className="relative z-10 space-y-8">
                   <div className="space-y-2">
@@ -225,7 +225,7 @@ const AnimalDetails = () => {
               </div>
 
               {/* Action Card */}
-              <div className="bg-white rounded-[48px] p-10 md:p-12 shadow-xl border border-gray-100">
+              <div className="bg-white rounded-4xl p-10 md:p-12 shadow-xl border border-gray-100">
                 {!session ? (
                   <div className="text-center space-y-8">
                     <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto">
@@ -285,7 +285,7 @@ const AnimalDetails = () => {
                             value={bookingData.phone}
                             onChange={(e) => setBookingData({ ...bookingData, phone: e.target.value })}
                             className="w-full px-6 py-4 rounded-2xl border border-gray-100 focus:outline-none focus:border-[#253237] focus:ring-0 transition-all bg-gray-50/50 text-sm font-bold text-[#253237]"
-                            placeholder="01XXXXX"
+                            placeholder="+88017XXXXXXXX"
                           />
                         </div>
                         <div className="space-y-2">

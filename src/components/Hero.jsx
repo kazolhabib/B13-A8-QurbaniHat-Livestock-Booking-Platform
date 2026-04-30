@@ -124,7 +124,7 @@ const Hero = () => {
               </p>
 
               <Link href="/animals" className="mt-2 md:mt-4">
-                <button className="bg-white text-[#253237] md:bg-[#253237] md:text-white px-7 md:px-10 py-3 md:py-4 rounded-full font-bold shadow-xl hover:bg-transparent hover:text-white md:hover:text-[#253237] border-2 border-white md:border-[#253237] transition-all duration-300 text-xs md:text-base tracking-widest cursor-pointer">
+                <button className="bg-white text-[#253237] md:bg-[#253237] md:text-white px-7 md:px-10 py-3 md:py-4 rounded-full font-bold shadow-xl hover:bg-transparent hover:text-white md:hover:text-[#253237] border-2 border-white md:border-[#253237] hover:border-[#ffcc4d] transition-all duration-300 text-xs md:text-base tracking-widest cursor-pointer">
                   Explore All Animals
                 </button>
               </Link>

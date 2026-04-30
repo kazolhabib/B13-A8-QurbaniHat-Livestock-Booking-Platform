@@ -45,7 +45,7 @@ const Navbar = () => {
                   <Link
                     href={link.href}
                     style={{ color: customColor }}
-                    className={`relative py-2 transition-all duration-300 group ${
+                    className={`relative uppercase text-sm py-2 transition-all duration-300 group ${
                       pathname === link.href ? "font-medium" : "font-normal hover:opacity-100"
                     }`}
                   >
@@ -69,7 +69,7 @@ const Navbar = () => {
                   <Link
                     href="/profile"
                     style={{ color: customColor }}
-                    className="font-normal hover:opacity-100 transition-all duration-300 flex items-center gap-2"
+                    className="font-normal text-sm uppercase hover:opacity-100 transition-all duration-300 flex items-center gap-2"
                   >
                     <div className="avatar">
                       <div className="w-8 rounded-full">
@@ -93,13 +93,22 @@ const Navbar = () => {
                   <Link
                     href="/login"
                     style={{ color: customColor }}
-                    className="font-normal hover:opacity-100 transition-all duration-300"
+                    className={`relative font-normal text-sm uppercase transition-all duration-300 group py-2 ${
+                      pathname === "/login" ? "font-medium" : "hover:opacity-100"
+                    }`}
                   >
                     Sign In
+                    {/* Animated Underline */}
+                    <span
+                      className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 ${
+                        pathname === "/login" ? "w-full" : "w-0 group-hover:w-full"
+                      }`}
+                      style={{ backgroundColor: customColor }}
+                    ></span>
                   </Link>
                   <Link
                     href="/register"
-                    className="btn bg-[#253237] px-8 text-white font-bold rounded-full shadow-lg shadow-primary/20 hover:border-[#253237] hover:bg-transparent hover:text-[#253237] transition-all duration-300"
+                    className="btn bg-[#253237] px-8 text-white font-bold rounded-full shadow-lg shadow-primary/20 hover:border-[#ffcc4d] hover:bg-transparent hover:text-[#253237] transition-all duration-300"
                   >
                     Sign Up
                   </Link>
