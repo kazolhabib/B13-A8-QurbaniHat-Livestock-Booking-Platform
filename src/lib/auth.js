@@ -13,7 +13,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  baseURL: process.env.BETTER_AUTH_URL || (process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://qurbanihat-livestock-booking-pha.vercel.app"),
+  baseURL: process.env.BETTER_AUTH_URL || (process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://qurbanihat-livestock-booking-platform-pha.vercel.app"),
 
   socialProviders: {
     google: {
@@ -22,5 +22,5 @@ export const auth = betterAuth({
     },
   },
 
-  trustedOrigins: ["http://localhost:3000", "https://qurbanihat-livestock-booking-pha.vercel.app"],
+  trustedOrigins: ["http://localhost:3000", "https://qurbanihat-livestock-booking-platform-pha.vercel.app"],
 });
