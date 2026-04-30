@@ -4,7 +4,7 @@
 QurbaniHat is a premium digital platform designed to bridge the gap between buyers and verified livestock farmers across Bangladesh. Our goal is to provide a hassle-free, transparent, and secure experience for booking healthy Qurbani animals (cows, bulls, goats) for Eid-ul-Azha from the comfort of your home.
 
 ## Live URL
-[Insert Live URL Here]
+[https://qurbanihat-livestock-booking-platform-pha.vercel.app]
 
 ## ✨ Key Features
 - **User Authentication:** Secure Login and Registration system with Email/Password and Google Social Login.

@@ -59,7 +59,7 @@ const QurbaniGuide = () => {
                   </div>
                   <div className="space-y-1">
                     <h3 className="text-lg md:text-xl font-bold text-[#253237]">{tip.title}</h3>
-                    <p className="text-gray-500 text-xs md:text-sm leading-relaxed line-clamp-2 md:line-clamp-none">{tip.desc}</p>
+                    <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 md:line-clamp-none">{tip.desc}</p>
                   </div>
                 </div>
               ))}
@@ -67,9 +67,9 @@ const QurbaniGuide = () => {
           </div>
 
           {/* Right Side: Top Breeds / Image */}
-          <div className="relative mt-8 lg:mt-0 animate__animated animate__fadeInRight">
+          <div className="relative lg:mt-0 animate__animated animate__fadeInRight">
             {/* Main Visual */}
-            <div className="relative rounded-3xl lg:rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/5] sm:aspect-square lg:aspect-auto lg:h-[700px]">
+            <div className="relative rounded-3xl lg:rounded-[2.5rem] overflow-hidden shadow-2xl h-[650px] sm:aspect-square lg:aspect-auto lg:h-[700px]">
               <Image 
                 src={breedImg} 
                 alt="Premium Breeds" 
@@ -83,11 +83,11 @@ const QurbaniGuide = () => {
                   <h3 className="text-lg md:text-xl font-black text-[#253237] uppercase tracking-tighter italic">সেরা জাতের পশু ২০২৪</h3>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-3 md:gap-4">
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-3 md:gap-4">
                   {breeds.map((breed, index) => (
                     <div key={index} className="space-y-1 p-2.5 md:p-3 bg-[#253237]/5 rounded-xl md:rounded-2xl border border-[#253237]/5">
-                      <h4 className="font-bold text-[#253237] text-[11px] md:text-sm">{breed.name}</h4>
-                      <p className="text-[9px] md:text-[10px] text-gray-500 leading-tight line-clamp-2 md:line-clamp-none">{breed.features}</p>
+                      <h4 className="font-bold text-[#253237] text-lg">{breed.name}</h4>
+                      <p className="text-sm text-gray-500 leading-tight line-clamp-2 md:line-clamp-none">{breed.features}</p>
                     </div>
                   ))}
                 </div>
