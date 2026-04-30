@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Search, SlidersHorizontal, ArrowUpDown, MapPin, Scale, Calendar, Tag } from "lucide-react";
 import { toast } from "react-toastify";
 
+import qurbaniBanner from "@/assets/qurbani-banner.png";
+
 const AnimalsPage = () => {
   const [animals, setAnimals] = useState([]);
   const [filteredAnimals, setFilteredAnimals] = useState([]);
@@ -47,13 +49,25 @@ const AnimalsPage = () => {
   return (
     <div className="min-h-screen bg-[#fcfcfc] pb-20">
       {/* Page Header */}
-      <div className="bg-[#253237] text-white py-16 px-5 md:px-10 lg:px-20 mb-10">
-        <div className="max-w-[1360px] mx-auto text-center space-y-4">
-          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic">
+      <div className="relative h-[200px] md:h-[300px] flex items-center justify-center mb-10 overflow-hidden">
+        {/* Banner Image */}
+        <Image
+          src={qurbaniBanner}
+          alt="Explore All Animals Banner"
+          fill
+          priority
+          className="object-cover"
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/40" />
+
+        {/* Content */}
+        <div className="relative z-10 max-w-[1360px] mx-auto text-center space-y-4 px-5">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter text-white">
             Explore All Animals
           </h1>
-          <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
-            Find your perfect Qurbani animal from our verified collection of premium 
+          <p className="text-gray-200 max-w-2xl mx-auto text-sm md:text-lg font-medium">
+            Find your perfect Qurbani animal from our verified collection of premium
             livestock across Bangladesh.
           </p>
         </div>
@@ -61,27 +75,27 @@ const AnimalsPage = () => {
 
       <div className="max-w-[1360px] mx-auto px-5 md:px-10 lg:px-20">
         {/* Filters and Search Bar */}
-        <div className="flex flex-col md:flex-row gap-6 mb-12 items-center justify-between sticky top-24 z-30 bg-white/80 backdrop-blur-md p-6 rounded-[32px] shadow-sm border border-gray-100">
+        <div className="flex flex-col md:flex-row gap-6 mb-12 items-center justify-between bg-white/80 p-6 rounded-3xl shadow-sm border border-gray-100">
           {/* Search Box */}
-          <div className="relative w-full md:w-[400px] group">
+          <div className="relative w-full md:w-[300px] group">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-[#253237] transition-colors" />
             <input
               type="text"
               placeholder="Search by name or breed..."
-              className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-transparent focus:border-[#253237] rounded-2xl outline-none transition-all text-sm"
+              className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-transparent focus:border-[#253237] rounded-xl outline-none transition-all text-sm"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
           {/* Sort Dropdown */}
-          <div className="flex items-center gap-4 w-full md:w-auto">
+          <div className="flex items-center justify-between gap-4 w-full md:w-auto">
             <div className="flex items-center gap-2 text-gray-500 font-bold text-xs uppercase tracking-wider">
               <ArrowUpDown className="w-4 h-4" />
               Sort By:
             </div>
             <select
-              className="bg-gray-50 border border-transparent focus:border-[#253237] px-6 py-3.5 rounded-2xl outline-none text-sm font-bold text-[#253237] cursor-pointer"
+              className="bg-gray-50 border border-transparent focus:border-[#253237] px-6 py-3.5 rounded-xl outline-none text-sm font-bold text-[#253237] cursor-pointer"
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
             >
@@ -106,75 +120,75 @@ const AnimalsPage = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-          {filteredAnimals.map((animal) => (
-            <div
-              key={animal.id}
-              className="group bg-white rounded-[40px] border border-gray-50 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden flex flex-col h-full"
-            >
-              {/* Image Section */}
-              <div className="relative h-[300px] overflow-hidden">
-                <Image
-                  src={animal.image}
-                  alt={animal.name}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                {/* Category Badge */}
-                <div className="absolute top-6 left-6">
-                  <span className="px-4 py-1.5 bg-[#253237]/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest rounded-full">
-                    {animal.category}
-                  </span>
+            {filteredAnimals.map((animal) => (
+              <div
+                key={animal.id}
+                className="group bg-white rounded-3xl border border-gray-50 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden flex flex-col h-full"
+              >
+                {/* Image Section */}
+                <div className="relative h-[300px] overflow-hidden">
+                  <Image
+                    src={animal.image}
+                    alt={animal.name}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  {/* Category Badge */}
+                  <div className="absolute top-6 left-6">
+                    <span className="px-4 py-1.5 bg-[#253237]/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest rounded-full">
+                      {animal.category}
+                    </span>
+                  </div>
+                  {/* Location Badge */}
+                  <div className="absolute bottom-6 left-6">
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-xl text-[#253237] text-[10px] font-bold shadow-sm">
+                      <MapPin className="w-3.5 h-3.5" />
+                      {animal.location}
+                    </div>
+                  </div>
                 </div>
-                {/* Location Badge */}
-                <div className="absolute bottom-6 left-6">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-xl text-[#253237] text-[10px] font-bold shadow-sm">
-                    <MapPin className="w-3.5 h-3.5" />
-                    {animal.location}
+
+                {/* Info Section */}
+                <div className="p-8 space-y-6 flex-grow flex flex-col">
+                  <div className="space-y-1">
+                    <h3 className="text-2xl font-black text-[#253237] leading-tight">
+                      {animal.name}
+                    </h3>
+                    <div className="flex items-center gap-2 text-gray-400 text-xs font-bold uppercase">
+                      <Tag className="w-3 h-3" />
+                      {animal.breed}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 py-4 border-y border-gray-50">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                        <Scale className="w-3 h-3" /> Weight
+                      </span>
+                      <span className="text-sm font-bold text-[#253237]">{animal.weight} kg</span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                        <Calendar className="w-3 h-3" /> Age
+                      </span>
+                      <span className="text-sm font-bold text-[#253237]">{animal.age}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between mt-auto pt-6">
+                    <div className="flex flex-col">
+                      <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Asking Price</span>
+                      <span className="text-2xl font-black text-[#253237]">৳ {animal.price.toLocaleString()}</span>
+                    </div>
+                    <Link href={`/animals/${animal.id}`} onClick={() => toast.info("Loading animal details...")}>
+                      <button className="px-8 py-3.5 bg-[#253237] text-white text-xs font-bold uppercase rounded-full hover:bg-[#FFCC4D] hover:text-[#253237] transition-all duration-300 shadow-lg cursor-pointer">
+                        View Details
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>
-
-              {/* Info Section */}
-              <div className="p-8 space-y-6 flex-grow flex flex-col">
-                <div className="space-y-1">
-                  <h3 className="text-2xl font-black text-[#253237] uppercase leading-tight italic">
-                    {animal.name}
-                  </h3>
-                  <div className="flex items-center gap-2 text-gray-400 text-xs font-bold uppercase">
-                    <Tag className="w-3 h-3" />
-                    {animal.breed}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 py-4 border-y border-gray-50">
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider flex items-center gap-1">
-                      <Scale className="w-3 h-3" /> Weight
-                    </span>
-                    <span className="text-sm font-bold text-[#253237]">{animal.weight} kg</span>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider flex items-center gap-1">
-                      <Calendar className="w-3 h-3" /> Age
-                    </span>
-                    <span className="text-sm font-bold text-[#253237]">{animal.age}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between mt-auto pt-6">
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Asking Price</span>
-                    <span className="text-2xl font-black text-[#253237]">৳ {animal.price.toLocaleString()}</span>
-                  </div>
-                  <Link href={`/animals/${animal.id}`} onClick={() => toast.info("Loading animal details...")}>
-                    <button className="px-8 py-3.5 bg-[#253237] text-white text-xs font-bold uppercase rounded-2xl hover:bg-[#FFCC4D] hover:text-[#253237] transition-all duration-300 shadow-lg cursor-pointer">
-                      View Details
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
           </div>
         )}
 
@@ -185,8 +199,8 @@ const AnimalsPage = () => {
               <Search className="w-8 h-8 text-gray-300" />
             </div>
             <h2 className="text-2xl font-bold text-gray-400">No animals found matching your search</h2>
-            <button 
-              onClick={() => {setSearchTerm(""); setSortOrder("default");}}
+            <button
+              onClick={() => { setSearchTerm(""); setSortOrder("default"); }}
               className="text-[#253237] font-bold underline"
             >
               Clear all filters

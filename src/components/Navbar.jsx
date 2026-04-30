@@ -4,9 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from "@/assets/logo.png";
 import { usePathname } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { data: session, isPending } = authClient.useSession();
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -60,19 +62,49 @@ const Navbar = () => {
               ))}
             </ul>
             <div className="flex gap-8 ml-4 items-center">
-              <Link
-                href="/login"
-                style={{ color: customColor }}
-                className="font-normal hover:opacity-100 transition-all duration-300"
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/register"
-                className="btn bg-[#253237] px-8 text-white font-bold rounded-full shadow-lg shadow-primary/20 hover:border-[#253237] hover:bg-transparent hover:text-[#253237] transition-all duration-300"
-              >
-                Sign Up
-              </Link>
+              {isPending ? (
+                <span className="loading loading-spinner loading-sm"></span>
+              ) : session ? (
+                <>
+                  <Link
+                    href="/profile"
+                    style={{ color: customColor }}
+                    className="font-normal hover:opacity-100 transition-all duration-300 flex items-center gap-2"
+                  >
+                    <div className="avatar">
+                      <div className="w-8 rounded-full">
+                        <img src={session.user?.image || "https://ui-avatars.com/api/?name=" + (session.user?.name || "User")} alt="Profile" />
+                      </div>
+                    </div>
+                    Profile
+                  </Link>
+                  <button
+                    onClick={async () => {
+                      await authClient.signOut();
+                      window.location.href = '/login';
+                    }}
+                    className="btn btn-outline btn-error btn-sm rounded-full px-6 font-bold"
+                  >
+                    Log Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    style={{ color: customColor }}
+                    className="font-normal hover:opacity-100 transition-all duration-300"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="btn bg-[#253237] px-8 text-white font-bold rounded-full shadow-lg shadow-primary/20 hover:border-[#253237] hover:bg-transparent hover:text-[#253237] transition-all duration-300"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </div>
           </div>
 
@@ -122,23 +154,60 @@ const Navbar = () => {
               <li className="menu-title text-base-content/50 px-4 py-2 uppercase text-xs font-bold tracking-widest">
                 Account
               </li>
-              <li className="my-1">
-                <Link 
-                  href="/login" 
-                  style={{ color: customColor }}
-                  className="text-lg py-3 rounded-xl hover:bg-base-200 transition-colors"
-                >
-                  Sign In
-                </Link>
-              </li>
-              <li className="mt-4">
-                <Link 
-                  href="/register" 
-                  className="btn btn-primary btn-md w-full text-white font-bold rounded-xl shadow-lg shadow-primary/20"
-                >
-                  Sign Up
-                </Link>
-              </li>
+              
+              {isPending ? (
+                <li className="my-1 text-center">
+                  <span className="loading loading-spinner loading-md"></span>
+                </li>
+              ) : session ? (
+                <>
+                 <li className="my-1">
+                  <Link 
+                    href="/profile" 
+                    style={{ color: customColor }}
+                    className="text-lg py-3 rounded-xl hover:bg-base-200 transition-colors flex items-center gap-3"
+                  >
+                    <div className="avatar">
+                      <div className="w-8 rounded-full">
+                        <img src={session.user?.image || "https://ui-avatars.com/api/?name=" + (session.user?.name || "User")} alt="Profile" />
+                      </div>
+                    </div>
+                    Profile
+                  </Link>
+                 </li>
+                 <li className="mt-2">
+                   <button 
+                     onClick={async () => {
+                       await authClient.signOut();
+                       window.location.href = '/login';
+                     }}
+                     className="btn btn-error btn-outline btn-md w-full font-bold rounded-xl"
+                   >
+                     Log Out
+                   </button>
+                 </li>
+                </>
+              ) : (
+                <>
+                  <li className="my-1">
+                    <Link 
+                      href="/login" 
+                      style={{ color: customColor }}
+                      className="text-lg py-3 rounded-xl hover:bg-base-200 transition-colors"
+                    >
+                      Sign In
+                    </Link>
+                  </li>
+                  <li className="mt-4">
+                    <Link 
+                      href="/register" 
+                      className="btn btn-primary btn-md w-full text-white font-bold rounded-xl shadow-lg shadow-primary/20"
+                    >
+                      Sign Up
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

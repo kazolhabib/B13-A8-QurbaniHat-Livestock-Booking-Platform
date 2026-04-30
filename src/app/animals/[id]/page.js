@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { ChevronLeft, MapPin, Scale, Calendar, Tag, CheckCircle2, ShieldCheck, HeartPulse } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const AnimalDetails = () => {
   const { id } = useParams();
@@ -59,214 +60,259 @@ const AnimalDetails = () => {
     // Simulate API call for booking
     setTimeout(() => {
       setBookingLoading(false);
-      setToastMessage("Booking confirmed successfully! Our team will contact you soon.");
-      setBookingData({
-        name: session?.user?.name || "",
-        email: session?.user?.email || "",
-        phone: "",
-        address: "",
-      });
-
-      // Clear toast after 4s
-      setTimeout(() => setToastMessage(""), 4000);
+      toast.success("Booking Request Sent Successfully!");
+      router.push("/animals");
     }, 1500);
   };
 
   if (loading || isPending) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#fcfcfc]">
-        <div className="w-16 h-16 border-4 border-[#253237] border-t-transparent rounded-full animate-spin" />
+        <div className="w-16 h-16 border-4 border-[#253237] border-t-[#FFCC4D] rounded-full animate-spin"></div>
       </div>
     );
   }
 
   if (!animal) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#fcfcfc] space-y-4">
-        <h2 className="text-3xl font-black text-[#253237]">Animal Not Found</h2>
-        <Link href="/animals" className="text-[#FFCC4D] font-bold hover:underline">
-          Go back to All Animals
-        </Link>
+      <div className="min-h-screen flex items-center justify-center bg-[#fcfcfc]">
+        <div className="text-center space-y-4">
+          <h2 className="text-2xl font-bold text-gray-400">Animal not found</h2>
+          <Link href="/animals" className="text-[#253237] font-bold underline">Back to All Animals</Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#fcfcfc] py-12 px-5 md:px-10 lg:px-20">
-      <div className="max-w-[1360px] mx-auto">
-        <Link href="/animals" className="inline-flex items-center gap-2 text-gray-500 hover:text-[#253237] transition-colors font-bold text-sm mb-8 group">
-          <ChevronLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
-          Back to All Animals
+    <div className="min-h-screen bg-[#fcfcfc] pb-20 pt-24">
+      <div className="max-w-[1360px] mx-auto px-5 md:px-10 lg:px-20">
+        {/* Breadcrumb */}
+        <Link
+          href="/animals"
+          className="inline-flex items-center gap-2 text-gray-400 font-bold text-[10px] uppercase tracking-[0.2em] mb-10 hover:text-[#253237] transition-all group"
+        >
+          <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+          Back to Verified Collection
         </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* Left Column: Animal Details */}
-          <div className="lg:col-span-7 space-y-8">
-            {/* Image Section */}
-            <div className="relative rounded-[40px] overflow-hidden bg-white shadow-sm border border-gray-100 aspect-video md:aspect-[4/3] w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Left Column: Visuals & Primary Info */}
+          <div className="lg:col-span-7 space-y-10">
+            {/* Image Showcase */}
+            <div className="relative rounded-[48px] overflow-hidden bg-white shadow-2xl border border-gray-100 aspect-video md:aspect-[16/10] group">
               <Image
                 src={animal.image}
                 alt={animal.name}
                 fill
-                className="object-cover"
+                priority
+                className="object-cover transition-transform duration-1000 group-hover:scale-105"
               />
-              <div className="absolute top-6 left-6">
-                <span className="px-4 py-2 bg-[#253237]/90 backdrop-blur-md text-white text-xs font-bold uppercase tracking-widest rounded-full">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              {/* Badges on Image */}
+              <div className="absolute top-8 left-8 flex flex-col gap-3">
+                <span className="px-5 py-2 bg-white/90 backdrop-blur-xl text-[#253237] text-[10px] font-black uppercase tracking-widest rounded-full shadow-xl">
                   {animal.category}
                 </span>
-              </div>
-              <div className="absolute top-6 right-6">
-                <span className="px-4 py-2 bg-[#FFCC4D]/90 backdrop-blur-md text-[#253237] text-xs font-bold rounded-full">
-                  ID: #{animal.id}
+                <span className="px-5 py-2 bg-[#253237]/90 backdrop-blur-xl text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-xl flex items-center gap-2">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#FFCC4D]" /> Verified Animal
                 </span>
               </div>
             </div>
 
-            {/* Info Section */}
-            <div className="bg-white rounded-[40px] p-8 md:p-10 shadow-sm border border-gray-100 space-y-8">
-              <div>
-                <h1 className="text-4xl md:text-5xl font-black text-[#253237] uppercase leading-tight italic mb-2">
-                  {animal.name}
-                </h1>
-                <p className="text-gray-500 text-lg">{animal.description}</p>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 py-8 border-y border-gray-100">
-                <div className="space-y-1">
-                  <div className="text-gray-400 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5"><Tag className="w-3.5 h-3.5" /> Breed</div>
-                  <div className="text-[#253237] font-bold">{animal.breed}</div>
+            {/* Comprehensive Details Section */}
+            <div className="bg-white rounded-[48px] p-10 md:p-14 shadow-sm border border-gray-50 space-y-12">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gray-100 pb-10">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <span className="w-12 h-[2px] bg-[#FFCC4D]"></span>
+                    <span className="text-[10px] text-gray-400 font-black uppercase tracking-[0.3em]">{animal.type} Specimen</span>
+                  </div>
+                  <h1 className="text-4xl md:text-6xl font-black text-[#253237] uppercase leading-[0.9] italic tracking-tighter">
+                    {animal.name}
+                  </h1>
                 </div>
-                <div className="space-y-1">
-                  <div className="text-gray-400 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5"><Scale className="w-3.5 h-3.5" /> Weight</div>
-                  <div className="text-[#253237] font-bold">{animal.weight} kg</div>
-                </div>
-                <div className="space-y-1">
-                  <div className="text-gray-400 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /> Age</div>
-                  <div className="text-[#253237] font-bold">{animal.age}</div>
-                </div>
-                <div className="space-y-1">
-                  <div className="text-gray-400 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" /> Location</div>
-                  <div className="text-[#253237] font-bold">{animal.location}</div>
+                <div className="flex items-center gap-3 bg-[#fcfcfc] px-6 py-3 rounded-2xl border border-gray-50">
+                  <MapPin className="w-5 h-5 text-[#FFCC4D]" />
+                  <span className="text-sm font-bold text-[#253237]">{animal.location}, Bangladesh</span>
                 </div>
               </div>
 
-              {/* Badges/Features */}
-              <div className="flex flex-wrap gap-4">
-                <div className="flex items-center gap-2 px-4 py-2.5 bg-[#253237]/5 text-[#253237] rounded-xl text-sm font-bold">
-                  <ShieldCheck className="w-5 h-5 text-green-600" /> Fully Vaccinated
+              {/* Data Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div className="space-y-2">
+                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest flex items-center gap-2">
+                    <Tag className="w-4 h-4" /> Breed
+                  </p>
+                  <p className="text-lg font-black text-[#253237]">{animal.breed}</p>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2.5 bg-[#253237]/5 text-[#253237] rounded-xl text-sm font-bold">
-                  <HeartPulse className="w-5 h-5 text-rose-500" /> 100% Healthy
+                <div className="space-y-2">
+                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest flex items-center gap-2">
+                    <Scale className="w-4 h-4" /> Live Weight
+                  </p>
+                  <p className="text-lg font-black text-[#253237]">{animal.weight} KG</p>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2.5 bg-[#253237]/5 text-[#253237] rounded-xl text-sm font-bold">
-                  <CheckCircle2 className="w-5 h-5 text-[#FFCC4D]" /> Verified Seller
+                <div className="space-y-2">
+                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest flex items-center gap-2">
+                    <Calendar className="w-4 h-4" /> Age
+                  </p>
+                  <p className="text-lg font-black text-[#253237]">{animal.age}</p>
                 </div>
+                <div className="space-y-2">
+                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4" /> Health Status
+                  </p>
+                  <p className="text-lg font-black text-green-600 uppercase">Excellent</p>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="space-y-6 pt-6 border-t border-gray-100">
+                <h3 className="text-xl font-black text-[#253237] uppercase tracking-wide italic">Animal Description</h3>
+                <p className="text-gray-500 leading-relaxed text-lg font-medium">
+                  {animal.description}
+                </p>
+              </div>
+
+              {/* Features Icons */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+                {[
+                  { icon: HeartPulse, label: "Medical Checkup", desc: "100% Certified", color: "text-rose-500" },
+                  { icon: ShieldCheck, label: "Secure Handling", desc: "Trusted Process", color: "text-green-500" },
+                  { icon: Tag, label: "Best Value", desc: "Premium Grade", color: "text-orange-500" }
+                ].map((feature, i) => (
+                  <div key={i} className="flex items-center gap-3 p-4 bg-gray-50/50 rounded-2xl border border-gray-50/50 hover:border-gray-100 transition-all duration-300">
+                    <div className={`w-10 h-10 shrink-0 bg-white rounded-xl flex items-center justify-center ${feature.color} shadow-sm border border-gray-50`}>
+                      <feature.icon className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-black text-[#253237] uppercase tracking-tight whitespace-nowrap">{feature.label}</p>
+                      <p className="text-[9px] text-gray-400 font-bold uppercase whitespace-nowrap">{feature.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Right Column: Booking Form */}
+          {/* Right Column: Dynamic Booking Card */}
           <div className="lg:col-span-5">
-            <div className="bg-white rounded-[40px] p-8 shadow-2xl border border-gray-100 sticky top-24">
-              <div className="space-y-2 mb-8">
-                <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">Total Price</p>
-                <h3 className="text-4xl font-black text-[#253237]">৳ {animal.price.toLocaleString()}</h3>
+            <div className="sticky top-32 space-y-8">
+              {/* Pricing Card */}
+              <div className="bg-[#253237] rounded-[48px] p-10 md:p-12 text-white shadow-2xl relative overflow-hidden group">
+                <div className="absolute -right-20 -top-20 w-64 h-64 bg-white/5 rounded-full blur-3xl group-hover:bg-white/10 transition-colors duration-700" />
+                <div className="relative z-10 space-y-8">
+                  <div className="space-y-2">
+                    <p className="text-[#FFCC4D] font-black uppercase tracking-[0.4em] text-[10px]">Asking Price</p>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-6xl font-black italic tracking-tighter">৳ {animal.price.toLocaleString()}</span>
+                      <span className="text-gray-400 font-bold uppercase text-xs tracking-widest">Fixed</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col gap-4 pt-4 border-t border-white/10">
+                    <div className="flex items-center gap-3 text-gray-400 text-xs font-bold uppercase tracking-widest">
+                      <CheckCircle2 className="w-4 h-4 text-green-500" /> 
+                      No hidden charges
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-400 text-xs font-bold uppercase tracking-widest">
+                      <CheckCircle2 className="w-4 h-4 text-green-500" /> 
+                      Free doorstep delivery in {animal.location}
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {!session ? (
-                <div className="bg-[#f8f9fa] p-8 rounded-3xl text-center space-y-6">
-                  <div className="w-16 h-16 bg-[#253237]/10 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <svg className="w-8 h-8 text-[#253237]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
+              {/* Action Card */}
+              <div className="bg-white rounded-[48px] p-10 md:p-12 shadow-xl border border-gray-100">
+                {!session ? (
+                  <div className="text-center space-y-8">
+                    <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto">
+                      <svg className="w-10 h-10 text-[#253237]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                    </div>
+                    <div className="space-y-2">
+                      <h4 className="text-2xl font-black text-[#253237] uppercase tracking-tight">Login Required</h4>
+                      <p className="text-sm text-gray-400 font-medium leading-relaxed">To ensure secure transactions, please log in to your account before booking.</p>
+                    </div>
+                    <Link href="/login">
+                      <button 
+                        onClick={() => toast.info("Please login first to book an animal!")}
+                        className="w-full py-5 bg-[#253237] text-white font-black uppercase tracking-widest text-xs rounded-[20px] hover:bg-[#FFCC4D] hover:text-[#253237] transition-all duration-500 shadow-xl cursor-pointer"
+                      >
+                        Authorize & Book Now
+                      </button>
+                    </Link>
                   </div>
-                  <h4 className="text-xl font-bold text-[#253237]">Login Required</h4>
-                  <p className="text-sm text-gray-500">You need to be logged in to book this animal.</p>
-                  <Link href="/login">
-                    <button className="w-full py-4 bg-[#253237] text-white font-bold rounded-xl hover:bg-[#FFCC4D] hover:text-[#253237] transition-all duration-300">
-                      Login to Book
-                    </button>
-                  </Link>
-                </div>
-              ) : (
-                <form onSubmit={handleBookingSubmit} className="space-y-5">
-                  <h4 className="text-xl font-black text-[#253237] uppercase tracking-wide border-b border-gray-100 pb-4 mb-6">
-                    Booking Details
-                  </h4>
-                  
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Full Name</label>
-                    <input
-                      type="text"
-                      required
-                      value={bookingData.name}
-                      onChange={(e) => setBookingData({ ...bookingData, name: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#253237] focus:ring-1 focus:ring-[#253237] transition-colors bg-gray-50"
-                      placeholder="Your Name"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Email</label>
-                    <input
-                      type="email"
-                      required
-                      value={bookingData.email}
-                      onChange={(e) => setBookingData({ ...bookingData, email: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#253237] focus:ring-1 focus:ring-[#253237] transition-colors bg-gray-50"
-                      placeholder="Your Email"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Phone Number</label>
-                    <input
-                      type="tel"
-                      required
-                      value={bookingData.phone}
-                      onChange={(e) => setBookingData({ ...bookingData, phone: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#253237] focus:ring-1 focus:ring-[#253237] transition-colors bg-gray-50"
-                      placeholder="Your Contact Number"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Delivery Address</label>
-                    <textarea
-                      required
-                      rows={3}
-                      value={bookingData.address}
-                      onChange={(e) => setBookingData({ ...bookingData, address: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#253237] focus:ring-1 focus:ring-[#253237] transition-colors bg-gray-50 resize-none"
-                      placeholder="Full Delivery Address"
-                    />
-                  </div>
+                ) : (
+                  <form onSubmit={handleBookingSubmit} className="space-y-8">
+                    <div className="flex items-center gap-4 border-b border-gray-100 pb-6 mb-2">
+                      <div className="w-10 h-[2px] bg-[#FFCC4D]"></div>
+                      <h4 className="text-xl font-black text-[#253237] uppercase tracking-widest italic">Booking Form</h4>
+                    </div>
+                    
+                    <div className="space-y-6">
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Recipient Name</label>
+                        <input
+                          type="text"
+                          required
+                          value={bookingData.name}
+                          onChange={(e) => setBookingData({ ...bookingData, name: e.target.value })}
+                          className="w-full px-6 py-4 rounded-2xl border border-gray-100 focus:outline-none focus:border-[#253237] focus:ring-0 transition-all bg-gray-50/50 text-sm font-bold text-[#253237]"
+                          placeholder="Your full name"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Contact Email</label>
+                        <input
+                          type="email"
+                          required
+                          value={bookingData.email}
+                          onChange={(e) => setBookingData({ ...bookingData, email: e.target.value })}
+                          className="w-full px-6 py-4 rounded-2xl border border-gray-100 focus:outline-none focus:border-[#253237] focus:ring-0 transition-all bg-gray-50/50 text-sm font-bold text-[#253237]"
+                          placeholder="Your email address"
+                        />
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Phone Number</label>
+                          <input
+                            type="tel"
+                            required
+                            value={bookingData.phone}
+                            onChange={(e) => setBookingData({ ...bookingData, phone: e.target.value })}
+                            className="w-full px-6 py-4 rounded-2xl border border-gray-100 focus:outline-none focus:border-[#253237] focus:ring-0 transition-all bg-gray-50/50 text-sm font-bold text-[#253237]"
+                            placeholder="01XXXXX"
+                          />
+                        </div>
+                      </div>
+                    </div>
 
-                  <button
-                    type="submit"
-                    disabled={bookingLoading}
-                    className="w-full py-4 mt-4 bg-[#FFCC4D] text-[#253237] text-lg font-black uppercase rounded-xl hover:bg-[#253237] hover:text-[#FFCC4D] transition-all duration-300 disabled:opacity-70 flex justify-center shadow-lg"
-                  >
-                    {bookingLoading ? (
-                      <span className="w-6 h-6 border-4 border-[#253237] border-t-transparent rounded-full animate-spin"></span>
-                    ) : (
-                      "Confirm Booking"
-                    )}
-                  </button>
-                  <p className="text-center text-[10px] text-gray-400 font-medium">No payment required until delivery.</p>
-                </form>
-              )}
+                    <button
+                      type="submit"
+                      disabled={bookingLoading}
+                      className="w-full py-5 bg-[#FFCC4D] text-[#253237] text-sm font-black uppercase tracking-[0.2em] rounded-[24px] hover:bg-[#253237] hover:text-[#FFCC4D] transition-all duration-500 disabled:opacity-70 flex justify-center items-center shadow-xl group"
+                    >
+                      {bookingLoading ? (
+                        <div className="w-6 h-6 border-4 border-[#253237] border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        <span className="flex items-center gap-3">
+                          Confirm Reservation
+                          <ShieldCheck className="w-5 h-5" />
+                        </span>
+                      )}
+                    </button>
+                    <p className="text-center text-[9px] text-gray-400 font-black uppercase tracking-widest">Guaranteed Secure Booking Process</p>
+                  </form>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Success Toast */}
-      {toastMessage && (
-        <div className="toast toast-top toast-center z-50">
-          <div className="alert alert-success bg-[#253237] text-[#FFCC4D] border-none shadow-xl flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5" />
-            <span className="font-bold">{toastMessage}</span>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
