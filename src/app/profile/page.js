@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { User, Mail, Calendar, Settings, LogOut, Loader2, ArrowLeft, Edit3, Save, X, Camera } from "lucide-react";
+import { toast } from "react-toastify";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -42,7 +43,10 @@ export default function ProfilePage() {
   };
 
   const handleUpdateProfile = async () => {
-    if (!editName.trim()) return;
+    if (!editName.trim()) {
+      toast.error("Name cannot be empty");
+      return;
+    }
     setIsUpdating(true);
     
     try {
@@ -51,11 +55,12 @@ export default function ProfilePage() {
         image: editImage,
       });
       setIsEditing(false);
-      // Force reload to get updated session data across the app
+      toast.success("Profile updated successfully!");
+      // Force reload to update session across the app
       window.location.reload();
     } catch (error) {
       console.error("Failed to update profile:", error);
-      alert("Failed to update profile. Please try again.");
+      toast.error("Failed to update profile. Please try again.");
     } finally {
       setIsUpdating(false);
     }
@@ -90,7 +95,7 @@ export default function ProfilePage() {
 
         {/* Profile Header Card */}
         <div className="bg-white rounded-[2rem] p-8 md:p-12 shadow-sm border border-gray-100 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden">
-          {/* Edit Profile Toggle Button */}
+          {/* Edit/Cancel Toggle Button */}
           <button 
             onClick={() => {
               if (isEditing) {
@@ -99,33 +104,38 @@ export default function ProfilePage() {
               }
               setIsEditing(!isEditing);
             }}
-            className="absolute top-6 right-6 p-3 bg-gray-50 rounded-full text-gray-500 hover:bg-[#253237] hover:text-white transition-colors"
+            className="absolute top-6 right-6 p-3 bg-gray-50 rounded-full text-gray-500 hover:bg-[#253237] hover:text-white transition-colors z-20"
             title={isEditing ? "Cancel Editing" : "Edit Profile"}
           >
             {isEditing ? <X className="w-5 h-5" /> : <Edit3 className="w-5 h-5" />}
           </button>
 
           <div className="relative group">
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-[#fcfcfc] shadow-lg relative">
+            <div 
+              className={`w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-[#fcfcfc] shadow-lg relative ${isEditing ? 'cursor-pointer' : ''}`}
+              onClick={() => isEditing && fileInputRef.current?.click()}
+            >
               <img 
                 src={isEditing ? (editImage || `https://ui-avatars.com/api/?name=${encodeURIComponent(editName || 'User')}&background=random&size=200`) : (user.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=random&size=200`)} 
                 alt={user.name} 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
+              
+              {/* Change Photo Overlay */}
               {isEditing && (
-                <div 
-                  onClick={() => fileInputRef.current?.click()}
-                  className="absolute inset-0 bg-black/40 flex items-center justify-center cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity"
-                >
-                  <Camera className="w-8 h-8 text-white" />
+                <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white transition-opacity">
+                  <Camera className="w-8 h-8 mb-1" />
+                  <span className="text-[10px] font-black uppercase tracking-tighter">Change Photo</span>
                 </div>
               )}
             </div>
+            
             {!isEditing && (
               <div className="absolute bottom-2 right-2 w-8 h-8 bg-[#FFCC4D] rounded-full border-4 border-white flex items-center justify-center">
                 <div className="w-3 h-3 bg-[#253237] rounded-full animate-pulse"></div>
               </div>
             )}
+            
             <input 
               type="file" 
               ref={fileInputRef} 
@@ -136,26 +146,27 @@ export default function ProfilePage() {
           </div>
           
           <div className="flex-1 text-center md:text-left space-y-4">
-            <div>
+            <div className="space-y-4">
               {isEditing ? (
-                <div className="space-y-3 max-w-sm mx-auto md:mx-0">
-                  <input
-                    type="text"
-                    value={editName}
-                    onChange={(e) => setEditName(e.target.value)}
-                    className="w-full text-2xl font-black text-[#253237] capitalize px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-[#253237] focus:outline-none transition-colors"
-                    placeholder="Your Name"
-                  />
-                  <div className="flex gap-2">
-                    <button
-                      onClick={handleUpdateProfile}
-                      disabled={isUpdating || !editName.trim()}
-                      className="flex-1 py-2 bg-[#253237] text-white font-bold rounded-xl flex items-center justify-center gap-2 disabled:opacity-70"
-                    >
-                      {isUpdating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                      Save
-                    </button>
+                <div className="space-y-4 max-w-sm mx-auto md:mx-0">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Your Full Name</label>
+                    <input
+                      type="text"
+                      value={editName}
+                      onChange={(e) => setEditName(e.target.value)}
+                      className="w-full text-2xl font-black text-[#253237] capitalize px-5 py-3 border-2 border-gray-100 rounded-2xl focus:border-[#253237] focus:outline-none transition-all bg-gray-50/50"
+                      placeholder="Enter Name"
+                    />
                   </div>
+                  <button
+                    onClick={handleUpdateProfile}
+                    disabled={isUpdating || !editName.trim()}
+                    className="w-full py-4 bg-[#253237] text-white font-black uppercase tracking-widest text-xs rounded-2xl flex items-center justify-center gap-2 hover:bg-[#FFCC4D] hover:text-[#253237] transition-all duration-300 shadow-xl"
+                  >
+                    {isUpdating ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
+                    Save Information
+                  </button>
                 </div>
               ) : (
                 <>
@@ -183,9 +194,8 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Action Cards Grid */}
+        {/* Account Details View (Static) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Account Settings */}
           <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 space-y-6">
             <div className="flex items-center gap-4 border-b border-gray-50 pb-4">
               <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center">
@@ -200,7 +210,7 @@ export default function ProfilePage() {
             <div className="space-y-4">
               <div className="space-y-1">
                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Full Name</label>
-                <div className="px-4 py-3 bg-gray-50 rounded-xl text-sm font-bold text-gray-700 border border-gray-100">
+                <div className="px-4 py-3 bg-gray-50 rounded-xl text-sm font-bold text-gray-700 border border-gray-100 capitalize">
                   {user.name}
                 </div>
               </div>
@@ -208,13 +218,11 @@ export default function ProfilePage() {
                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Email Address</label>
                 <div className="px-4 py-3 bg-gray-50 rounded-xl text-sm font-bold text-gray-700 border border-gray-100">
                   {user.email}
-                  <span className="ml-2 text-[10px] text-green-600 uppercase tracking-widest font-black bg-green-100 px-2 py-1 rounded-md">Verified</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Activity/Logout */}
           <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col">
             <div className="flex items-center gap-4 border-b border-gray-50 pb-4 mb-6">
               <div className="w-12 h-12 bg-red-50 rounded-2xl flex items-center justify-center">
@@ -227,8 +235,8 @@ export default function ProfilePage() {
             </div>
             
             <div className="mt-auto space-y-4">
-              <p className="text-sm text-gray-500 font-medium">
-                You are currently signed in securely. If you are using a public computer, make sure to log out before leaving.
+              <p className="text-sm text-gray-500 font-medium leading-relaxed">
+                You are currently signed in securely. If you are using a public computer, make sure to log out.
               </p>
               <button 
                 onClick={handleLogout}
@@ -240,7 +248,6 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

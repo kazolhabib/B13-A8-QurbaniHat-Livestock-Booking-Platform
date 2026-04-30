@@ -13,7 +13,7 @@ const AnimalDetails = () => {
   const router = useRouter();
   const [animal, setAnimal] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
   // Auth state
   const { data: session, isPending } = authClient.useSession();
 
@@ -109,7 +109,7 @@ const AnimalDetails = () => {
                 className="object-cover transition-transform duration-1000 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
+
               {/* Badges on Image */}
               <div className="absolute top-8 left-8 flex flex-col gap-3">
                 <span className="px-5 py-2 bg-white/90 backdrop-blur-xl text-[#253237] text-[10px] font-black uppercase tracking-widest rounded-full shadow-xl">
@@ -210,14 +210,14 @@ const AnimalDetails = () => {
                       <span className="text-gray-400 font-bold uppercase text-xs tracking-widest">Fixed</span>
                     </div>
                   </div>
-                  
+
                   <div className="flex flex-col gap-4 pt-4 border-t border-white/10">
                     <div className="flex items-center gap-3 text-gray-400 text-xs font-bold uppercase tracking-widest">
-                      <CheckCircle2 className="w-4 h-4 text-green-500" /> 
+                      <CheckCircle2 className="w-4 h-4 text-green-500" />
                       No hidden charges
                     </div>
                     <div className="flex items-center gap-3 text-gray-400 text-xs font-bold uppercase tracking-widest">
-                      <CheckCircle2 className="w-4 h-4 text-green-500" /> 
+                      <CheckCircle2 className="w-4 h-4 text-green-500" />
                       Free doorstep delivery in {animal.location}
                     </div>
                   </div>
@@ -238,7 +238,7 @@ const AnimalDetails = () => {
                       <p className="text-sm text-gray-400 font-medium leading-relaxed">To ensure secure transactions, please log in to your account before booking.</p>
                     </div>
                     <Link href="/login">
-                      <button 
+                      <button
                         onClick={() => toast.info("Please login first to book an animal!")}
                         className="w-full py-5 bg-[#253237] text-white font-black uppercase tracking-widest text-xs rounded-[20px] hover:bg-[#FFCC4D] hover:text-[#253237] transition-all duration-500 shadow-xl cursor-pointer"
                       >
@@ -252,7 +252,7 @@ const AnimalDetails = () => {
                       <div className="w-10 h-[2px] bg-[#FFCC4D]"></div>
                       <h4 className="text-xl font-black text-[#253237] uppercase tracking-widest italic">Booking Form</h4>
                     </div>
-                    
+
                     <div className="space-y-6">
                       <div className="space-y-2">
                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Recipient Name</label>

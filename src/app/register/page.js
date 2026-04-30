@@ -96,7 +96,7 @@ export default function RegisterPage() {
             />
           </div>
 
-          
+
 
           <div className="space-y-1.5">
             <label className="text-sm font-bold text-gray-700">Password</label>
