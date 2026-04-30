@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# QurbaniHat - Livestock Booking Platform
 
-## Getting Started
+## Project Purpose
+QurbaniHat is a premium digital platform designed to bridge the gap between buyers and verified livestock farmers across Bangladesh. Our goal is to provide a hassle-free, transparent, and secure experience for booking healthy Qurbani animals (cows, bulls, goats) for Eid-ul-Azha from the comfort of your home.
 
-First, run the development server:
+## Live URL
+[Insert Live URL Here]
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Key Features
+- **User Authentication:** Secure Login and Registration system with Email/Password and Google Social Login.
+- **Premium Livestock Collection:** Browse, search, and sort a curated list of animals with high-quality images.
+- **Detailed Animal Profiles:** View comprehensive details including breed, weight, age, origin, and asking price.
+- **Secure Booking System:** Authenticated users can securely book their preferred animal with doorstep delivery options.
+- **Profile Management:** A dedicated user profile section to update display names and profile photos.
+- **Dynamic & Responsive UI:** Fully responsive design crafted with Tailwind CSS and DaisyUI, enhanced with smooth `animate.css` transitions.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## NPM Packages Used
+This project leverages modern web technologies and the following key npm packages:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Framework & Core:**
+  - `next` (v16.2.4) - The React framework for the web.
+  - `react` & `react-dom` - Core libraries for building the UI.
+- **Authentication & Database:**
+  - `better-auth` - Comprehensive authentication solution.
+  - `@better-auth/mongo-adapter` & `mongodb` - Database integration for storing user sessions and credentials.
+- **Styling & UI:**
+  - `tailwindcss` - Utility-first CSS framework.
+  - `daisyui` - Tailwind CSS component library for rapid UI development.
+  - `lucide-react` - Beautiful and consistent iconography.
+- **User Experience (UX):**
+  - `animate.css` - For smooth, premium entry animations across the application.
+  - `react-toastify` - For elegant, non-blocking toast notifications (success/error alerts).

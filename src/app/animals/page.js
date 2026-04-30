@@ -127,12 +127,14 @@ const AnimalsPage = () => {
               >
                 {/* Image Section */}
                 <div className="relative h-[300px] overflow-hidden">
-                  <Image
-                    src={animal.image}
-                    alt={animal.name}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
+                  <div className={`absolute inset-0 w-full h-full ${animal.id === 6 ? "-scale-x-100" : ""}`}>
+                    <Image
+                      src={animal.image}
+                      alt={animal.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  </div>
                   {/* Category Badge */}
                   <div className="absolute top-6 left-6">
                     <span className="px-4 py-1.5 bg-[#253237]/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest rounded-full">

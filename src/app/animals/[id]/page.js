@@ -112,7 +112,7 @@ const AnimalDetails = () => {
 
               {/* Badges on Image */}
               <div className="absolute top-8 left-8 flex flex-col gap-3">
-                <span className="px-5 py-2 bg-white/90 backdrop-blur-xl text-[#253237] text-[10px] font-black uppercase tracking-widest rounded-full shadow-xl">
+                <span className="px-5 py-2 bg-white/90 backdrop-blur-xl text-[#253237] text-[10px] font-black uppercase tracking-widest text-center rounded-full shadow-xl">
                   {animal.category}
                 </span>
                 <span className="px-5 py-2 bg-[#253237]/90 backdrop-blur-xl text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-xl flex items-center gap-2">
