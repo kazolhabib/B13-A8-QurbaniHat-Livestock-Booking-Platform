@@ -168,8 +168,8 @@ const AnimalDetails = () => {
               </div>
 
               {/* Description */}
-              <div className="space-y-6 pt-6 border-t border-gray-100">
-                <h3 className="text-xl font-black text-[#253237] uppercase tracking-wide italic">Animal Description</h3>
+              <div className="space-y-5 pt-6 border-t border-gray-100">
+                <h3 className="text-xl font-black text-[#253237] uppercase tracking-wide">Animal Description</h3>
                 <p className="text-gray-500 leading-relaxed text-lg font-medium">
                   {animal.description}
                 </p>
