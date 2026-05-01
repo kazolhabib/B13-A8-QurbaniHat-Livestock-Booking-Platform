@@ -6,7 +6,7 @@ QurbaniHat is a premium digital platform designed to bridge the gap between buye
 ## Live URL
 [https://qurbanihat-livestock-booking-platform-pha.vercel.app]
 
-## ✨ Key Features
+## Key Features
 - **User Authentication:** Secure Login and Registration system with Email/Password and Google Social Login.
 - **Premium Livestock Collection:** Browse, search, and sort a curated list of animals with high-quality images.
 - **Detailed Animal Profiles:** View comprehensive details including breed, weight, age, origin, and asking price.
